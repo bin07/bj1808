@@ -1,0 +1,83 @@
+
+  虚拟机操作： Ctrl+ALT  鼠标回到真机
+  
+   #代表系统管理员root
+   $代表系统普通用户
+
+#######################################################
+  Linux目录结构的起点为：根目录/
+
+   根目录 / ：所有的数据都在根目录下
+
+• pwd — Print Working Directory
+– 用途:查看当前工作目录
+
+• cd — Change Directory
+– 用途:切换工作目录
+– 格式:cd [目标文件夹位置]
+
+• ls — List
+– 格式:ls [选项]... [目录或文件名]...
+
+
+  /test/abc/1.txt
+
+[root@localhost 桌面]# pwd          #显示当前所在位置
+[root@localhost 桌面]# cd  /        #切换到根目录
+[root@localhost /]# pwd 
+[root@localhost /]# ls             #显示当前目录内容
+
+[root@localhost /]# cd  /boot
+[root@localhost boot]# pwd
+[root@localhost boot]# ls
+
+[root@localhost boot]# cd   /
+[root@localhost /]# pwd
+[root@localhost /]# ls
+[root@localhost /]# cd /etc
+[root@localhost etc]# pwd
+[root@localhost etc]# ls
+
+[root@student 桌面]# hostname   #查看主机名
+
+[root@student 桌面]# hostname  student  #修改主机名为student
+
+[root@student 桌面]# hostname 
+
+ 再开一个新的终端生效
+
+[root@student 桌面]# poweroff   #关闭Linux系统
+
+#######################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,226 @@
+shell
+
+
+
+
+scale=2     (小数点后两位） 写一次就好
+
+
+
+test  $USER == root     
+[  $User == root        ]
+echo $?
+当前登录用户
+
+
+&& 并且的意思   前面成功在执行后面命令  
+-eq   等于
+-ne   不等于	
+-gt   大于                           都不能作小数判断
+-ge   大于等于                
+-lt   小于
+-le   小于等于
+
+
+wc -l  查询行数         who | wc -l
+
+who能看到有几个人登录了几个计算机
+! 取反
+-e 是否存在
+例   [  -e  /var ] && echo Y || echo N 
+-d判断是否存在 且为目录
+-f判断是否存在 且为文件
+-r
+-w
+-x
+
+$? 脚本上一个输出参数
+
+$RANDOM   随机数 0到32767 之间的随机数
+
+num=$[RANDOM%10+1]
+
+ps aux |      （查找运行程序）
+
+
+
+for循环格式(固定次数）
+for  变量名  in  值列表
+do
+    命令序列
+done
+for  变量名  in  {1..5}
+do
+    命令序列
+done
+for  变量名  in  `seq 5`
+do
+    命令序列
+done
+for  变量名  in  `ls /etc/*.conf`
+do
+    命令序列
+done
+
+
+#!/bin/bash
+for i in {1..5}
+do
+   echo 小姐姐
+done
+for i in $(seq 8)  同上
+do
+   echo "单闯"
+done
+
+
+命令备注：ping命令可以测试某台主机的连通性，
+使用-c选项可以设置ping的次数，
+使用-i选项可以设置多次ping之间的间隔时间（单位秒），
+使用-W选项可以设置ping不通时的超时时间（单位秒）。
+
+
+#!/bin/bash
+b='172.40.51.'
+for a in `seq 254`
+do
+ping -c1 -w1 $b$a &>/dev/null
+if [ $? -eq 0 ];then
+ echo "$b$a is up"
+else
+ echo "$b$a is down"
+fi
+done
+
+while循环（不固定次数）
+
+while  条件测试
+do
+    命令序列
+done
+while :
+do
+    命令序列
+done
+
+
+使用系统自带变量RANDOM提取随机数（1-100），使用while :制作死循环
+#!/bin/bash
+num=$[RANDOM%100+1]
+i=0
+while :
+do
+read -p "随机数1-100,你猜:" guess
+ let i++              //猜一次，计数器加1，统计猜的次数
+if [ "$guess" -eq "$num" ];then
+        echo "恭喜，猜对了"
+        echo "你猜了$i次"
+        exit
+elif [ $guess -gt $num ];then
+        echo "猜大了"
+else
+        echo "猜小了"
+   fi
+done
+
+
+死循环
+sleep 0.2   睡2秒
+while :
+do
+  echo ...
+  echo ...
+  sleep 0.2
+done
+ 
+
+点名脚本
+先建立一个txt文档 内容是名字
+vim /root/1.txt
+#!/bin/bash
+n=$(cat user.txt | wc -l )
+while : 
+do
+  clear (清屏的意思）
+  line=$[RANDOM%10+1]
+  head -$line user.txt | tail -1
+  sleep 0.5
+done
+
+
+
+创建查看删除 （类似if判断）（简化版的if语句）
+#!/bin/bash
+case $1 in
+-n)
+     touch $2;;
+-e)
+     vim $2;;
+-c)
+     cat $2;;
+-r)
+     rm -rf $2;;
+*)
+     echo "Usage:$0[-n|-e|-c|-r] file"
+esac
+
+
+
+函数
+mycd(){
+mkdir $1
+cd $1
+}
+mycd 1
+
+
+#!/bin/bash
+myping (){
+ping -c1 -W1 $1 &>/dev/null
+if [ $? -eq 0 ];then
+  echo "$1 is up"
+else
+  echo "$1 is down"
+fi
+}
+for i  in {1..254}
+do
+  myping 192.16	8.4.$i &
+done
+wait  (等于)
+
+
+
+炸弹脚本！！！！
+[root@svr5 ~]# vim test.sh
+#!/bin/bash
+.(){
+.|.&
+}
+.
+continue   到这里结束
+
+1+2+3+4+..+100 =5050
+#!/bin/bash
+sum=0
+for i in {1..100}
+do 
+   let sum=sum+i   #sum+=i
+done
+   echo $sum
+
+
+求和
+#!/bin/bash
+sum=0
+while :
+read -p "请输入整数，0结束" num
+do
+  [ $num -eq 0 ] && break
+  sum=$[sum+num]
+done
+  echo $sum
+
+echo -n  (可以不换行）
+
+
